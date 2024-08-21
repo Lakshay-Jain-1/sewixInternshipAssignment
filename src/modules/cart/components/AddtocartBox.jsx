@@ -23,7 +23,7 @@ async function makePayment(value) {
         "Content-Type": "application/json",
       };
   
-      const response = await fetch('http://localhost:4000/makepayment', {
+      const response = await fetch('https://sewixbackend.onrender.com/makepayment', {
         method: "POST",
         headers: headers,
         body: JSON.stringify(body),
