@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { useState } from "react"
+import { loadStripe } from "@stripe/stripe-js"
 export default function Cart(){
     const selector = useSelector((state)=>state.addTocart.value)
     const [total ,setTotal] =useState(0)
