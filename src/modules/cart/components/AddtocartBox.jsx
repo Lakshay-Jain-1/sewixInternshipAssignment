@@ -11,6 +11,39 @@ export default function Cart(){
         })
         setTotal(sum)
     },[])
+    
+async function makePayment(value) {
+    try {
+      const stripe = await loadStripe("pk_test_51P4Re4SDWrf3hkbmaX3NUTFClY7nXhJQmHKbFIYvom0OI65Tlbt7hl2SnnQsRN5bhGASUwqIoZzmVAU25L6v81f900CwOREFob"); // Use environment variables
+  
+      const body = { total: value }; // Dynamic value instead of hardcoded total
+  
+      const headers = {
+        "Content-Type": "application/json",
+      };
+  
+      const response = await fetch('http://localhost:4000/makepayment', {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Payment failed");
+      }
+  
+      const session = await response.json();
+
+  
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id,
+      });
+    
+  
+    } catch (error) {
+      console.error("Error making payment:", error);
+    }
+  }
 
     return(
 
@@ -32,7 +65,7 @@ export default function Cart(){
            </div>
            <div style={{display:"flex",justifyContent:"space-around"}}>
            <h3>Total {total}   </h3>
-           <button>PAY NOWW</button>
+           <button onClick={()=>makePayment(total)}>PAY NOWW</button>
            </div>
 
 
