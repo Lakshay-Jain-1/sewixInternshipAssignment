@@ -1,33 +1,35 @@
-import { useNavigate } from "react-router-dom"
 import Product from "../components/product"
+import DialogBox from "../components/dialogBox"
+import { useState } from "react"
 
 
-function Products(){
-    const navigate = useNavigate()
+
+function Products() {
   
-    const productDetails ={
-        img:"./test.jpg",
-        title:"Esda Power Saving Motor",
-        price:"100"
+    const [displayDialog, setDisplayDialog] = useState("none")
+    const productDetails = {
+        img: "./test.jpg",
+        title: "Esda Power Saving Motor",
+        price: "100"
     }
 
-    const secondproduct ={
-        img:"./test.jpg",
-        title:"Esda",
-        price:"500"
+    const secondproduct = {
+        img: "./test.jpg",
+        title: "Esda",
+        price: "500"
     }
 
 
-    return(
+    return (
         <>
-        <img   onClick={() => navigate("/cart")} style={{position:"absolute",right:"20px",top:"20px"}} height="60px" width="60px" src="./image.png"/>
-        <div style={{display:"grid",gridTemplateColumns:"auto auto auto auto",gap:"20px"}}>
-        
-        <Product  details = {productDetails} />
-        <Product  details = {secondproduct} />
-        
-        
-        </div>
+            <img onClick={() => setDisplayDialog("block")} style={{ position: "absolute", right: "20px", top: "20px" }} height="60px" width="60px" src="./image.png" />
+            <div style={{ display: "grid", gridTemplateColumns: "auto auto auto auto", gap: "20px" }}>
+              <DialogBox setDisplayDialog={setDisplayDialog} displayDialog={displayDialog} />
+                <Product details={productDetails} />
+                <Product details={secondproduct} />
+
+
+            </div>
         </>
     )
 }
